@@ -1,0 +1,15 @@
+[package]
+name = "ukiyoe"
+version = "0.0.0"
+authors = ["Richard Anaya"]
+edition = "2021"
+description = "A library for rendering images to the terminal"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/richardanaya/ukiyoe"
+readme="README.md"
+
+[dependencies]
+ansi-escapes = "0.1.1"
+colored = "2.0.0"
+image = "0.24.3"
+unicode-width = "0.1.9"
