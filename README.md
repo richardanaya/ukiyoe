@@ -1,4 +1,4 @@
-# kimono
+# ukiyoe
 
 <a href="https://docs.rs/ukiyoe"><img src="https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square" alt="docs.rs docs" /></a>
 
