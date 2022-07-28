@@ -12,6 +12,15 @@ cargo add ukiyoe
 
 # Examples
 
+```rust
+use ukiyoe::Image;
+
+fn main() {
+    let mut image = Image::new("examples/test.png");
+    image.render_at_position(0, 0, 100, 40);
+}
+```
+
 # Art
 
 ![ukiyoe_portland](https://user-images.githubusercontent.com/294042/181436102-fdef0292-2170-4b5f-9779-de3c4a22ce4c.png)
