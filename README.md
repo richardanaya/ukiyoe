@@ -12,6 +12,19 @@ cargo add ukiyoe
 
 # Examples
 
+*Render to terminal with width and height.*
+
+```rust
+use ukiyoe::Image;
+
+fn main() {
+    let mut image = Image::new("examples/test.png");
+    image.render(100, 40);
+}
+```
+
+*Render at a specific location.*
+
 ```rust
 use ukiyoe::Image;
 
