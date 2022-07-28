@@ -51,7 +51,7 @@ impl Image {
         (width, height, lines)
     }
 
-    pub fn render_at_position(&mut self, x: u16, y: u16, width: u16, height: u16) {
+    fn lazy_load(&mut self, width: u16, height: u16) {
         if let None = self.image {
             self.image = Some(image::open(&self.path).unwrap());
         }
@@ -67,12 +67,25 @@ impl Image {
         } else {
             panic!("No image");
         }
+    }
+
+    pub fn render_at_position(&mut self, x: u16, y: u16, width: u16, height: u16) {
+        self.lazy_load(width, height);
 
         let image = self.cached_image.as_ref().expect("No cached image");
         print!("{}", CursorTo::AbsoluteXY(x, y));
         let char_rows = &image.2;
         for char_row in char_rows {
             print!("{}{}", char_row, CursorMove::XY(-(width as i16), 1))
+        }
+    }
+
+    pub fn render(&mut self, width: u16, height: u16) {
+        self.lazy_load(width, height);
+        let image = self.cached_image.as_ref().expect("No cached image");
+        let char_rows = &image.2;
+        for char_row in char_rows {
+            println!("{}", char_row);
         }
     }
 }
