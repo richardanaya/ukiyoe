@@ -4,7 +4,8 @@
 
 Render images to the terminal using truecolor and unicode.
 
-<img width="651" alt="Screen Shot 2022-07-29 at 5 23 57 AM" src="https://user-images.githubusercontent.com/294042/181757767-cd291968-f8f7-4123-b9a7-fdb0d0999fa1.png">
+<img width="648" alt="Screen Shot 2022-07-29 at 5 25 01 AM" src="https://user-images.githubusercontent.com/294042/181757858-2faf5946-3c0d-4ee1-a07e-c60db530fba4.png">
+
 
 This package was meant to be used by it's sister package [kimono](https://github.com/richardanaya/kimono).
 
