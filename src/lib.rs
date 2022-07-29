@@ -2,7 +2,6 @@ use ansi_escapes::{CursorMove, CursorTo};
 use colored::Colorize;
 use image::DynamicImage;
 use image::GenericImageView;
-use image::Rgba;
 
 pub struct Image {
     pub path: String,
@@ -35,15 +34,18 @@ impl Image {
             for x in 0..width {
                 let r_x = (x as f32 / width as f32 * image_width as f32) as u32;
                 let r_y = (y as f32 / height as f32 * image_height as f32) as u32;
-                let pixel = pixels[(r_y * image_width + r_x) as usize];
-                let color: Rgba<u8> = pixel.2;
-                let data = color.0;
-
-                let r = data[0];
-                let g = data[1];
-                let b = data[2];
-
-                line.push_str(&format!("{}", "▒".truecolor(r, g, b)));
+                let r_half_y =
+                    (r_y + ((y + 1) as f32 / height as f32 * image_height as f32) as u32) / 2;
+                let top_pixel = pixels[(r_y * image_width + r_x) as usize];
+                let bottom_pixel = pixels[(r_half_y * image_width + r_x) as usize];
+                let top_color = top_pixel.2 .0;
+                let bottom_color = bottom_pixel.2 .0;
+                line.push_str(&format!(
+                    "{}",
+                    "▄"
+                        .truecolor(bottom_color[0], bottom_color[1], bottom_color[2])
+                        .on_truecolor(top_color[0], top_color[1], top_color[2])
+                ));
             }
             lines.push(line);
         }
