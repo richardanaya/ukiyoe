@@ -2,7 +2,7 @@
 
 <a href="https://docs.rs/ukiyoe"><img src="https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square" alt="docs.rs docs" /></a>
 
-Render images to the terminal using truecolor and unicode
+Render images to the terminal using truecolor and unicode.
 
 <img width="651" alt="Screen Shot 2022-07-27 at 6 40 39 PM" src="https://user-images.githubusercontent.com/294042/181401896-567d0d21-2d23-4452-9a77-a39327c32f1d.png">
 
