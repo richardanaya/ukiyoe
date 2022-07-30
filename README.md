@@ -39,6 +39,28 @@ fn main() {
 }
 ```
 
+*Render raw pixels.*
+
+<img width="196" alt="Screen Shot 2022-07-30 at 1 59 33 PM" src="https://user-images.githubusercontent.com/294042/181996031-2b2e23c2-7fc0-4371-a071-596d60ca7427.png">
+
+```rust
+use ukiyoe::Image;
+
+fn main() {
+    Image::render_pixels(
+        20,
+        20,
+        &[
+            [255, 0, 0, 255],
+            [0, 255, 0, 255],
+            [0, 0, 255, 255],
+            [0, 0, 255, 255],
+        ],
+        2,
+    );
+}
+```
+
 # Art
 
 ![ukiyoe_portland](https://user-images.githubusercontent.com/294042/181436102-fdef0292-2170-4b5f-9779-de3c4a22ce4c.png)
