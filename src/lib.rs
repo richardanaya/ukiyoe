@@ -2,6 +2,8 @@ use ansi_escapes::{CursorMove, CursorTo};
 use colored::Colorize;
 use image::DynamicImage;
 use image::GenericImageView;
+use image::Pixel;
+use image::Rgba;
 
 pub struct Image {
     pub path: String,
@@ -26,7 +28,16 @@ impl Image {
     ) -> (u16, u16, Vec<String>) {
         let pixels: Vec<_> = image.pixels().collect();
         let (image_width, image_height) = image.dimensions();
+        return Image::transform_pixels_to_lines(width, height, &pixels, image_width, image_height);
+    }
 
+    fn transform_pixels_to_lines(
+        width: u16,
+        height: u16,
+        pixels: &[(u32, u32, Rgba<u8>)],
+        image_width: u32,
+        image_height: u32,
+    ) -> (u16, u16, Vec<String>) {
         let mut lines = Vec::new();
 
         for y in 0..height {
@@ -88,6 +99,62 @@ impl Image {
         let char_rows = &image.2;
         for char_row in char_rows {
             println!("{}", char_row);
+        }
+    }
+
+    pub fn render_pixels_at_position(
+        x: u16,
+        y: u16,
+        width: u16,
+        height: u16,
+        pixels: &[[u8; 4]],
+        pixel_width: usize,
+    ) {
+        print!("{}", CursorTo::AbsoluteXY(x, y));
+        let numbered_pixels: Vec<(u32, u32, Rgba<u8>)> = pixels
+            .iter()
+            .enumerate()
+            .map(|(i, pixel)| {
+                let x = i % pixel_width;
+                let y = i / pixel_width;
+                let color = Rgba::<u8>::from_slice(pixel);
+                (x as u32, y as u32, color.clone())
+            })
+            .collect();
+        let char_rows = Image::transform_pixels_to_lines(
+            width,
+            height,
+            &numbered_pixels,
+            pixel_width as u32,
+            pixels.len() as u32 / pixel_width as u32,
+        );
+        let char_rows = char_rows.2;
+        for char_row in char_rows {
+            print!("{}{}", char_row, CursorMove::XY(-(width as i16), 1))
+        }
+    }
+
+    pub fn render_pixels(width: u16, height: u16, pixels: &[[u8; 4]], pixel_width: usize) {
+        let numbered_pixels: Vec<(u32, u32, Rgba<u8>)> = pixels
+            .iter()
+            .enumerate()
+            .map(|(i, pixel)| {
+                let x = i % pixel_width;
+                let y = i / pixel_width;
+                let color = Rgba::<u8>::from_slice(pixel);
+                (x as u32, y as u32, color.clone())
+            })
+            .collect();
+        let char_rows = Image::transform_pixels_to_lines(
+            width,
+            height,
+            &numbered_pixels,
+            pixel_width as u32,
+            pixels.len() as u32 / pixel_width as u32,
+        );
+        let char_rows = char_rows.2;
+        for char_row in char_rows {
+            print!("{}{}", char_row, CursorMove::XY(-(width as i16), 1))
         }
     }
 }
